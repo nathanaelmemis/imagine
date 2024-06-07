@@ -1,10 +1,5 @@
 {
     "version": 2,
-    "functions": {
-      "api/file.js": {
-        "includeFiles": "greet.cjs"
-      }
-    },
     "builds": [
       {
         "src": "server.js",

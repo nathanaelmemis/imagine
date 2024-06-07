@@ -1,7 +1,5 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-import fs from 'fs';
-import path from 'path';
 
 const app = express();
 app.use(bodyParser.json()); 
@@ -11,12 +9,11 @@ app.get("/", (req: any, res: any) => res.send("Express on Vercel"));
 
 app.get("/labels", (req: any, res: any) => {
 
-    let usersPath = path.join(process.cwd(), 'labels.txt');
-    let file = fs.readFileSync('labels.txt');
+    const labels = require('./labels.json').labels
 
-    console.log(file.toString().split('\r\n'))
+    console.log(labels)
 
-    res.json(file.toString().split('\r\n'))
+    res.json(labels)
 
 
     // fs.readFile('labels.txt', 'utf8', (err: Error, data: string) => {
