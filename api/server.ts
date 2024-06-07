@@ -23,7 +23,8 @@ app.post('/generate', async (req: any, res: any) => {
 
     // return error if no query in packet
     if (!query) {
-        return res.status(400).send('No query provided');
+        res.status(400).send('No query provided');
+        return
     }
 
     const labels = require('./labels.json').labels
@@ -39,7 +40,8 @@ app.post('/generate', async (req: any, res: any) => {
 
     // return error empty array if no recognized word or synonyms in classes
     if (!recognized_word) {
-        return res.json({ imageUrls: [] });
+        res.json({ imageUrls: [] });
+        return
     }
 
     // log if valid query

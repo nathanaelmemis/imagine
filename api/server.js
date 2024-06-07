@@ -27,7 +27,8 @@ app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const query = req.body.query.toLowerCase().split(' ');
     // return error if no query in packet
     if (!query) {
-        return res.status(400).send('No query provided');
+        res.status(400).send('No query provided');
+        return;
     }
     const labels = require('./labels.json').labels;
     let recognized_word = '';
@@ -40,7 +41,8 @@ app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     // return error empty array if no recognized word or synonyms in classes
     if (!recognized_word) {
-        return res.json({ imageUrls: [] });
+        res.json({ imageUrls: [] });
+        return;
     }
     // log if valid query
     console.log('Generating images for query:', recognized_word);
