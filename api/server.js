@@ -13,7 +13,7 @@ app.get("/labels", (req, res) => {
             res.status(500).send(`File could not be read!, ${err}`);
             return;
         }
-        const labels = data.split('\n');
+        const labels = data.split('\r\n');
         console.log(labels);
         res.json(labels);
     });
