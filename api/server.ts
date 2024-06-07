@@ -50,12 +50,6 @@ app.post('/generate', async (req: any, res: any) => {
     // const generatedImagesPromise = axios.post('https://imagine.automos.net/label/generate', { labels: [index, index, index, index] });
     const generatedImagesPromise = ['awdawdawdwa']
 
-    // const imageUrls = generatedImages.map(image => {
-    //     const encodedImage = base64.encode(image);
-    //     const mimeType = 'image/jpg';
-    //     return `data:${mimeType};base64,${encodedImage}`;
-    // });
-
     return res.json(generatedImagesPromise); // array(16) of image URLs
 });
 

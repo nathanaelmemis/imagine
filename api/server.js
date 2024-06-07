@@ -34,7 +34,7 @@ app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     let recognized_word = '';
     let index = 0;
     for (index = 0; index < labels.length; index++) {
-        if (query.includes(labels[index])) {
+        if (query.includes(labels[index].toLowerCase())) {
             recognized_word = labels[index];
             break;
         }
@@ -48,11 +48,6 @@ app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     console.log('Generating images for query:', recognized_word);
     // const generatedImagesPromise = axios.post('https://imagine.automos.net/label/generate', { labels: [index, index, index, index] });
     const generatedImagesPromise = ['awdawdawdwa'];
-    // const imageUrls = generatedImages.map(image => {
-    //     const encodedImage = base64.encode(image);
-    //     const mimeType = 'image/jpg';
-    //     return `data:${mimeType};base64,${encodedImage}`;
-    // });
     return res.json(generatedImagesPromise); // array(16) of image URLs
 }));
 app.listen(3000, () => console.log("Server ready on port 3000."));
