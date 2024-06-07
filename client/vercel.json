@@ -6,7 +6,7 @@
     },
     {
         "source": "/api/generate",
-        "destination": "https://imagineserver.vercel.app/labels"
+        "destination": "https://imagineserver.vercel.app/generate"
     }
   ]
 }
