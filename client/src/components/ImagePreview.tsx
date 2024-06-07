@@ -64,7 +64,7 @@ function ImagePreview({ isGeneratingImages, generatedImagesUrl, generatingImages
 function ErrorGeneratingImages() {
   return(
     <Grid textAlign={'center'} alignItems={'center'}>
-      <img src="/src/assets/error.png" width={164}/>
+      <img src="../src/assets/error.png" width={164}/>
       <Typography>Sorry we couldn't process your query.</Typography>
     </Grid>
   )
