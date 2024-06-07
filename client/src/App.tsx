@@ -17,7 +17,7 @@ function App() {
       height={generatedImagesUrl.length ? 'auto' : '100vh'}
       sx={{ backgroundColor: 'primary.light' }}>
       <Typography 
-        color={'primary.dark'}
+        color={'primary.main'}
         variant={generatedImagesUrl.length ? 'h3' : 'h1'}
         sx={{ mt: generatedImagesUrl.length ? 1 : 0 }}>Imagine</Typography>
       <QueryInput 

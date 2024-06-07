@@ -41,7 +41,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
         query: query
       }
 
-      const res = await axios.post('http://localhost:5000/generate', data);
+      const res = await axios.post('/generate', data);
 
       if (res.data.imageUrls.length) {
         setGeneratedImageUrl(res.data.imageUrls)
@@ -59,7 +59,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
   useEffect(() => {
     try {
       async function fetchClassOptions() {
-        const res = await axios.get('http://localhost:5000/class_options')
+        const res = await axios.get('/class_options')
 
         setClassOptions(res.data)
       }

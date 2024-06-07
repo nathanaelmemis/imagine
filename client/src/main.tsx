@@ -10,10 +10,10 @@ const theme = createTheme({
   palette: {
     primary: {
       main: purple[900],
-      light: purple[50]
+      light: purple[50],
     },
     secondary: {
-      main: 'rgb(255, 255, 255)'
+      main: 'rgb(255, 255, 255)',
     }
   },
 });
