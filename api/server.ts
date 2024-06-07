@@ -18,7 +18,8 @@ app.get("/labels", (req: any, res: any) => {
 
         const labels = data.split('\r\n');
 
-        console.log(labels)
+
+        // console.log(labels)
         res.json(labels)
     })
 });
