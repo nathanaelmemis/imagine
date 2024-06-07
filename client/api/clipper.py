@@ -1,8 +1,8 @@
-import nltk
+# import nltk
 
-nltk.data.path = ['nltk_data/corpora/wordnet']
+# nltk.data.path = ['nltk_data/corpora/wordnet']
 
-from nltk.corpus import wordnet
+# from nltk.corpus import wordnet
 
 class Clipper:
     '''
@@ -15,18 +15,18 @@ class Clipper:
             
     def __call__(self, query):
         # find the first word that has match within classes
-        recognized_word = self._check_word_array_in_classes(query, self.classes)
+        return self._check_word_array_in_classes(query, self.classes)
 
-        # if no match in classes get synonyms
-        if recognized_word:
-            return recognized_word
+        # # if no match in classes get synonyms
+        # if recognized_word:
+        #     return recognized_word
         
-        for word in query:
-            synonyms = self._get_synonyms(word)
-            # check if any synonym matches in classes
-            recognized_word = self._check_word_array_in_classes(synonyms, self.classes)
-            if recognized_word:
-                return recognized_word
+        # for word in query:
+        #     synonyms = self._get_synonyms(word)
+        #     # check if any synonym matches in classes
+        #     recognized_word = self._check_word_array_in_classes(synonyms, self.classes)
+        #     if recognized_word:
+        #         return recognized_word
             
         return ''
 
@@ -36,13 +36,13 @@ class Clipper:
                 return word
         return ''
 
-    def _get_synonyms(self, word):
-        synonyms = []
+    # def _get_synonyms(self, word):
+    #     synonyms = []
 
-        synsets = wordnet.synsets(word)
+    #     synsets = wordnet.synsets(word)
         
-        for synset in synsets:
-            for lemma in synset.lemmas():
-                synonyms.append(lemma.name())
+    #     for synset in synsets:
+    #         for lemma in synset.lemmas():
+    #             synonyms.append(lemma.name())
 
-        return synonyms
+    #     return synonyms
