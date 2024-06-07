@@ -41,7 +41,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
         query: query
       }
 
-      const res = await axios.post('/api/generate', data);
+      const res = await axios.post('https://imagineserver.vercel.app/generate', data);
 
       if (res.data.imageUrls.length) {
         setGeneratedImageUrl(res.data.imageUrls)
@@ -59,7 +59,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
   useEffect(() => {
     try {
       async function fetchClassOptions() {
-        const res = await axios.get('/labels')
+        const res = await axios.get('https://imagineserver.vercel.app/labels')
 
         setClassOptions(res.data)
       }
