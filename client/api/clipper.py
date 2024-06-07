@@ -1,3 +1,7 @@
+import nltk
+
+nltk.data.path = ['nltk_data/corpora/wordnet']
+
 from nltk.corpus import wordnet
 
 class Clipper:
