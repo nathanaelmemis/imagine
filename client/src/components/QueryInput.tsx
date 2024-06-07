@@ -59,7 +59,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
   useEffect(() => {
     try {
       async function fetchClassOptions() {
-        const res = await axios.get('https://imagineserver.vercel.app/labels')
+        const res = await axios.get('/api/labels')
 
         setClassOptions(res.data)
       }

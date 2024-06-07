@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+    {
+      "source": "/api/labels",
+      "destination": "https://imagineserver.vercel.app/labels"
+    }
+  ]
+}
