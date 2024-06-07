@@ -32,7 +32,7 @@ app.post('/generate', async (req: any, res: any) => {
     let recognized_word = ''
     let index = 0
     for (index = 0; index < labels.length; index++) {
-        if (query.includes(labels[index])) {
+        if (query.includes(labels[index].toLowerCase())) {
             recognized_word = labels[index];
             break;
         }
