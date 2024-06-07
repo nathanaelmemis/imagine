@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://imagineserver.vercel.app/', // Backend server address
+        target: 'https://imagineserver.vercel.app', // Backend server address
         changeOrigin: true, // If you need to change the origin of the request
         rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite the path if needed
       },
