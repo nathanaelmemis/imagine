@@ -59,7 +59,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
   useEffect(() => {
     try {
       async function fetchClassOptions() {
-        const res = await axios.get('/class_options')
+        const res = await axios.get('/labels')
 
         setClassOptions(res.data)
       }
