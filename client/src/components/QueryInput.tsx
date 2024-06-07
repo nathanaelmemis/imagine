@@ -41,7 +41,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
         query: query
       }
 
-      const res = await axios.post('https://imagineserver.vercel.app/generate', data);
+      const res = await axios.post('/api/generate', data);
 
       if (res.data.imageUrls.length) {
         setGeneratedImageUrl(res.data.imageUrls)

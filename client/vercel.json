@@ -3,6 +3,10 @@
     {
       "source": "/api/labels",
       "destination": "https://imagineserver.vercel.app/labels"
+    },
+    {
+        "source": "/api/generate",
+        "destination": "https://imagineserver.vercel.app/labels"
     }
   ]
 }
