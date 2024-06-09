@@ -18,8 +18,8 @@ app.get("/labels", (req: any, res: any) => {
 
 app.post('/preprocess', (req: any, res: any) => {
     // extract query from packet
-    // convert to lowercase & split by spaces
-    const query = req.body.query.toLowerCase().split(' ');
+    // convert to lowercase
+    const query = req.body.query.toLowerCase()
 
     // return error if no query in packet
     if (!query) {

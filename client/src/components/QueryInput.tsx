@@ -40,6 +40,10 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       const preprocessResponse = await axios.post('/api/preprocess', { query: query});
       const labels = preprocessResponse.data.labels;
 
+      if (!labels.length) {
+        throw new Error('No labels found')
+      }
+
       console.log(labels)
 
       const generateResponse = await axios.post('https://imagine.automos.net/label/generate', { labels: labels });
@@ -50,16 +54,18 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       const postprocessResponse = await axios.post('/api/postprocess', { imageUrls: imageUrls});
       const base64EncodedImages = postprocessResponse.data.base64EncodedImages;
 
+      if (!base64EncodedImages.length) {
+        throw new Error('Cannot encode images to base64')
+      }
+
       console.log(base64EncodedImages)
 
-      if (base64EncodedImages.length) {
-        setGeneratedImageUrl(base64EncodedImages.length ? base64EncodedImages : ['dummy_data'])
-        setGeneratingImagesError(false)
-      } else {
-        setGeneratingImagesError(true)
-      }
-    } catch {
+      setGeneratedImageUrl(base64EncodedImages.length ? base64EncodedImages : ['dummy_data'])
+      setGeneratingImagesError(false)
+    } catch(error) {
       setQueryError(true)
+      setGeneratingImagesError(true)
+      console.log(error)
     }
 
     setIsGeneratingImages(false)
@@ -69,8 +75,12 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
     try {
       async function fetchClassOptions() {
         const res = await axios.get('/api/labels')
+        const labels: string[] = res.data
+        
+        // filter out duplicate labels
+        const uniqueLabels: string[] = [...new Set(labels)]
 
-        setClassOptions(res.data)
+        setClassOptions(uniqueLabels)
       }
       fetchClassOptions()
     } catch (error) {
