@@ -43,7 +43,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       console.log(labels)
 
       const generateResponse = await axios.post('https://imagine.automos.net/label/generate', { labels: labels });
-      const imageUrls = generateResponse.data.imageUrls;
+      const imageUrls = generateResponse.data.image_urls;
 
       console.log(imageUrls)
 
