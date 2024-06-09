@@ -40,20 +40,14 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       const preprocessResponse = await axios.post('/api/preprocess', { query: query});
       const labels = preprocessResponse.data.labels;
 
-      console.log(labels);
-
       const generateResponse = await axios.post('https://imagine.automos.net/label/generate', { labels: labels });
       const imageUrls = generateResponse.data.imageUrls;
 
-      const base64EncodeImageUrls = []
-      for (const imageUrl of imageUrls) {
-        base64EncodeImageUrls.push(imageUrl.toString('base64'))
-      }
+      const postprocessResponse = await axios.post('/api/postprocess', { imageUrls: imageUrls});
+      const base64EncodedImages = postprocessResponse.data.base64EncodedImages;
 
-      console.log(base64EncodeImageUrls);
-
-      if (base64EncodeImageUrls.length) {
-        setGeneratedImageUrl(base64EncodeImageUrls.length ? base64EncodeImageUrls : ['dummy_data'])
+      if (base64EncodedImages.length) {
+        setGeneratedImageUrl(base64EncodedImages.length ? base64EncodedImages : ['dummy_data'])
         setGeneratingImagesError(false)
       } else {
         setGeneratingImagesError(true)
