@@ -37,7 +37,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
     setIsGeneratingImages(true)
 
     try {
-      const preprocessResponse = await axios.post('/api/preprocess', { query: query});
+      const preprocessResponse = await axios.post('/api/preprocess', { query: query });
       const labels = preprocessResponse.data.labels;
 
       if (!labels.length) {
@@ -52,18 +52,24 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       console.log(imageUrls)
 
       async function imageUrlToBase64(url: string) {
-          try {
-              // Fetch the image as an array buffer
-              const response = await axios.get(url, { responseType: 'arraybuffer' });
-              const buffer = Buffer.from(response.data, 'binary');
-              
-              // Convert the buffer to a base64 string
-              const base64String = buffer.toString('base64');
-              return `data:${response.headers['content-type']};base64,${base64String}`;
-          } catch (error) {
-              console.error('Error converting image to base64:', error);
-              return null; // Handle error and return null if conversion fails
-          }
+        try {
+          // Fetch the image as a blob
+          const response = await fetch(url);
+          const blob = await response.blob();
+
+          // Read the blob as a data URL
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              resolve(reader.result as string);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          });
+        } catch (error) {
+          console.error('Error converting image to base64:', error);
+          return null; // Handle error and return null if conversion fails
+        }
       }
 
       // convert image urls to base64
@@ -77,7 +83,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
 
       setGeneratedImageUrl(base64EncodedImages.length ? base64EncodedImages : ['dummy_data'])
       setGeneratingImagesError(false)
-    } catch(error) {
+    } catch (error) {
       setQueryError(true)
       setGeneratingImagesError(true)
       console.log(error)
@@ -91,7 +97,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
       async function fetchClassOptions() {
         const res = await axios.get('/api/labels')
         const labels: string[] = res.data
-        
+
         // filter out duplicate labels
         const uniqueLabels: string[] = [...new Set(labels)]
 
@@ -104,14 +110,15 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
   }, [])
 
   return (
-    <Grid 
-      container 
-      alignItems={'center'} 
-      spacing={1} 
-      sx={{ 
-        width: { md: '60%', sm: '80%', xs: '95%'}, 
+    <Grid
+      container
+      alignItems={'center'}
+      spacing={1}
+      sx={{
+        width: { md: '60%', sm: '80%', xs: '95%' },
         mt: 1,
-        mb: 2}}>
+        mb: 2
+      }}>
       <Grid item sx={{ flex: 1 }}>
         <Autocomplete
           id='queryInput'
@@ -125,7 +132,7 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
               error={queryError}
               label="Query Input"
               size='small'
-              key={2}/>
+              key={2} />
           }} />
       </Grid>
       <Grid item>
