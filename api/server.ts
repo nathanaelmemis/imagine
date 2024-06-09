@@ -16,7 +16,7 @@ app.get("/labels", (req: any, res: any) => {
     res.json(labels)
 });
 
-app.post('/generate', async (req: any, res: any) => {
+app.post('/preprocess', (req: any, res: any) => {
     // extract query from packet
     // convert to lowercase & split by spaces
     const query = req.body.query.toLowerCase().split(' ');
@@ -45,12 +45,9 @@ app.post('/generate', async (req: any, res: any) => {
     }
 
     // log if valid query
-    console.log('Generating images for query:', recognized_word);
+    console.log('Recognized word:', recognized_word, index);
 
-    // const generatedImagesPromise = axios.post('https://imagine.automos.net/label/generate', { labels: [index, index, index, index] });
-    const generatedImagesPromise = ['awdawdawdwa']
-
-    return res.json(generatedImagesPromise); // array(16) of image URLs
+    return res.json({ labels: [index, index, index, index] }); 
 });
 
 app.listen(3000, () => console.log("Server ready on port 3000."));

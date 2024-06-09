@@ -8,7 +8,7 @@ interface QueryInputProps {
   generatedImagesUrlLength: number,
   setIsGeneratingImages: (state: boolean) => any,
   setGeneratingImagesError: (state: boolean) => any,
-  setGeneratedImageUrl: (generatedImageUrl: [string]) => any
+  setGeneratedImageUrl: (generatedImageUrl: string[]) => any
 }
 
 function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGeneratingImagesError, setGeneratedImageUrl }: QueryInputProps) {
@@ -37,14 +37,23 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
     setIsGeneratingImages(true)
 
     try {
-      const data = {
-        query: query
+      const preprocessResponse = await axios.post('/api/preprocess', { query: query});
+      const labels = preprocessResponse.data.labels;
+
+      console.log(labels);
+
+      const generateResponse = await axios.post('https://imagine.automos.net/label/generate', { labels: labels });
+      const imageUrls = generateResponse.data.imageUrls;
+
+      const base64EncodeImageUrls = []
+      for (const imageUrl of imageUrls) {
+        base64EncodeImageUrls.push(imageUrl.toString('base64'))
       }
 
-      const res = await axios.post('/api/generate', data);
+      console.log(base64EncodeImageUrls);
 
-      if (res.data.imageUrls.length) {
-        setGeneratedImageUrl(res.data.imageUrls)
+      if (base64EncodeImageUrls.length) {
+        setGeneratedImageUrl(base64EncodeImageUrls.length ? base64EncodeImageUrls : ['dummy_data'])
         setGeneratingImagesError(false)
       } else {
         setGeneratingImagesError(true)
@@ -90,7 +99,8 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
               {...params}
               error={queryError}
               label="Query Input"
-              size='small' />
+              size='small'
+              key={2}/>
           }} />
       </Grid>
       <Grid item>
