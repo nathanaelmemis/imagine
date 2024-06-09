@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -21,7 +12,7 @@ app.get("/labels", (req, res) => {
     const labels = require('./labels.json').labels;
     res.json(labels);
 });
-app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/preprocess', (req, res) => {
     // extract query from packet
     // convert to lowercase & split by spaces
     const query = req.body.query.toLowerCase().split(' ');
@@ -45,9 +36,7 @@ app.post('/generate', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return;
     }
     // log if valid query
-    console.log('Generating images for query:', recognized_word);
-    // const generatedImagesPromise = axios.post('https://imagine.automos.net/label/generate', { labels: [index, index, index, index] });
-    const generatedImagesPromise = ['awdawdawdwa'];
-    return res.json(generatedImagesPromise); // array(16) of image URLs
-}));
+    console.log('Recognized word:', recognized_word, index);
+    return res.json({ labels: [index, index, index, index] });
+});
 app.listen(3000, () => console.log("Server ready on port 3000."));
