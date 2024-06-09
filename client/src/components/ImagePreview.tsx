@@ -20,20 +20,11 @@ function ImagePreview({ isGeneratingImages, generatedImagesUrl, generatingImages
   const colsBreakpoints: {[key: string]: number} = {
     'xl': 4,
     'lg': 4,
-    'md': 4,
+    'md': 2,
     'sm': 2,
     'xs': 1,
   }
   const cols = colsBreakpoints[breakpoint]
-  
-  const rowHeightBreakpoints: {[key: string]: number} = {
-    'xl': 128,
-    'lg': 128,
-    'md': 128,
-    'sm': 256,
-    'xs': 350,
-  }
-  const rowHeight = rowHeightBreakpoints[breakpoint]
 
   return (
     !generatedImagesUrl.length ? '' :
@@ -42,9 +33,9 @@ function ImagePreview({ isGeneratingImages, generatedImagesUrl, generatingImages
           generatingImagesError ? <ErrorGeneratingImages /> :
           <ImageList 
             cols={cols}
-            rowHeight={rowHeight} 
+            rowHeight={268} 
             gap={12} 
-            sx={{ width: { md: 548, sm: 536, xs: 350} }}>
+            sx={{ width: { xl: 1072, lg: 1072, md: 548, sm: 548, xs: 268} }}>
             {generatedImagesUrl.map((imageUrl, index) => (
               <ImageListItem key={index}>
                 <img

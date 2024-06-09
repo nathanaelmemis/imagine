@@ -47,7 +47,7 @@ app.post('/preprocess', (req: any, res: any) => {
     // log if valid query
     console.log('Recognized word:', recognized_word, index);
 
-    return res.json({ labels: [index, index, index, index] }); 
+    return res.json({ labels: [index, index, index, index, index, index, index, index] }); 
 });
 
 app.post('/postprocess', async (req: any, res: any) => {

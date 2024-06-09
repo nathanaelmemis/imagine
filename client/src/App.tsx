@@ -15,7 +15,7 @@ function App() {
       alignItems={'center'} 
       justifyContent={'center'} 
       height={generatedImagesUrl.length ? 'auto' : '100vh'}
-      sx={{ backgroundColor: 'primary.light' }}>
+      sx={{ backgroundColor: 'primary.light', mb: { lg: 0, xs: 5} }}>
       <Typography 
         color={'primary.main'}
         variant={generatedImagesUrl.length ? 'h3' : 'h1'}

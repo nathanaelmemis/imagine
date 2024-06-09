@@ -42,11 +42,11 @@ function ZoomedImagePreview({zoomedImageUrl, setZoomedImageUrl}: ZoomedImagePrev
               left: '50%', 
               transform: 'translate(-50%, -50%)',
               width: {
-                lg: '100vh',
+                sm: '100vh',
                 xs: '100vw'
               },
               height: {
-                lg: '100vh',
+                sm: '100vh',
                 xs: '100vw'
               },
             }}>

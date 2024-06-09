@@ -46,7 +46,7 @@ app.post('/preprocess', (req, res) => {
     }
     // log if valid query
     console.log('Recognized word:', recognized_word, index);
-    return res.json({ labels: [index, index, index, index] });
+    return res.json({ labels: [index, index, index, index, index, index, index, index] });
 });
 app.post('/postprocess', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const imageUrls = req.body.imageUrls;
