@@ -50,37 +50,4 @@ app.post('/preprocess', (req: any, res: any) => {
     return res.json({ labels: [index, index, index, index, index, index, index, index] }); 
 });
 
-app.post('/postprocess', async (req: any, res: any) => {
-    const imageUrls = req.body.imageUrls;
-
-    async function imageUrlToBase64(url: string) {
-        try {
-            // Fetch the image as an array buffer
-            const response = await axios.get(url, { responseType: 'arraybuffer' });
-            const buffer = Buffer.from(response.data, 'binary');
-            
-            // Convert the buffer to a base64 string
-            const base64String = buffer.toString('base64');
-            return `data:${response.headers['content-type']};base64,${base64String}`;
-        } catch (error) {
-            console.error('Error converting image to base64:', error);
-            return null; // Handle error and return null if conversion fails
-        }
-    }
-
-    try {
-        // Convert all image URLs to base64 encoded strings concurrently
-        const base64EncodedImages = await Promise.all(imageUrls.map((url: string) => imageUrlToBase64(url)));
-
-        // Filter out any null values (in case of errors)
-        const validBase64EncodedImages = base64EncodedImages.filter(img => img !== null);
-
-        return res.json({ base64EncodedImages: validBase64EncodedImages });
-    } catch (error) {
-        console.error('Error processing images:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
 app.listen(3000, () => console.log("Server ready on port 3000."));

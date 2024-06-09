@@ -51,8 +51,23 @@ function QueryInput({ generatedImagesUrlLength, setIsGeneratingImages, setGenera
 
       console.log(imageUrls)
 
-      const postprocessResponse = await axios.post('/api/postprocess', { imageUrls: imageUrls});
-      const base64EncodedImages = postprocessResponse.data.base64EncodedImages;
+      async function imageUrlToBase64(url: string) {
+          try {
+              // Fetch the image as an array buffer
+              const response = await axios.get(url, { responseType: 'arraybuffer' });
+              const buffer = Buffer.from(response.data, 'binary');
+              
+              // Convert the buffer to a base64 string
+              const base64String = buffer.toString('base64');
+              return `data:${response.headers['content-type']};base64,${base64String}`;
+          } catch (error) {
+              console.error('Error converting image to base64:', error);
+              return null; // Handle error and return null if conversion fails
+          }
+      }
+
+      // convert image urls to base64
+      const base64EncodedImages = await Promise.all(imageUrls.map((url: string) => imageUrlToBase64(url)));
 
       if (!base64EncodedImages.length) {
         throw new Error('Cannot encode images to base64')
